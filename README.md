@@ -6,29 +6,7 @@ This repository now contains a **working starter implementation** (backend, fron
 ## Quick start: run server and test from public IP
 
 ### Run backend on your VM and expose it publicly
-Use the deployment script (maps VM port `80` to backend container port `8080` by default):
 
-```bash
-cd infra
-PROJECT_ID=project-0693dfc8-2cf7-4d94-a5e \
-ZONE=us-central1-a \
-INSTANCE=ha-node-1 \
-JWT_SECRET='change-this-to-a-long-secret' \
-DATABASE_URL='postgres://crm_user:password@10.0.0.4:5432/crm_db' \
-CORS_ORIGIN='http://35.188.176.52' \
-./deploy-to-instance.sh
-```
-
-Then verify API reachability from anywhere:
-
-```bash
-curl http://35.188.176.52/health
-```
-
-Expected response:
-
-```json
-{"ok":true}
 ```
 
 > Note: for real production, put HTTPS + domain in front of the VM (Load Balancer or Nginx + cert).
@@ -244,3 +222,5 @@ infra/
   deploy-frontend.sh
   deploy-to-instance.sh
 ```
+=======
+CRM IN GOOGLE CLOUD

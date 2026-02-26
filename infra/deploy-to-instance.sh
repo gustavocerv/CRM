@@ -6,12 +6,17 @@ PROJECT_ID="${PROJECT_ID:-project-0693dfc8-2cf7-4d94-a5e}"
 ZONE="${ZONE:-us-central1-a}"
 INSTANCE="${INSTANCE:-ha-node-1}"
 
+
 # Build and push API image to Artifact Registry.
+=======
+# Build and push API image to Artifact Registry/GCR.
+
 REGION="${REGION:-us-central1}"
 REPOSITORY="${REPOSITORY:-crm}"
 IMAGE_NAME="${IMAGE_NAME:-crm-backend}"
 IMAGE_TAG="${IMAGE_TAG:-latest}"
 IMAGE_URI="${REGION}-docker.pkg.dev/${PROJECT_ID}/${REPOSITORY}/${IMAGE_NAME}:${IMAGE_TAG}"
+
 
 # Public IP routing options.
 HOST_PORT="${HOST_PORT:-80}"
@@ -29,6 +34,8 @@ GOOGLE_REDIRECT_URI="${GOOGLE_REDIRECT_URI:-http://35.188.176.52/api/integration
 GCS_BUCKET="${GCS_BUCKET:-project-0693dfc8-2cf7-4d94-a5e-crm-uploads}"
 CORS_ORIGIN="${CORS_ORIGIN:-http://35.188.176.52}"
 
+=======
+
 # Create repo if missing.
 gcloud artifacts repositories create "$REPOSITORY" \
   --repository-format=docker \
@@ -38,6 +45,7 @@ gcloud artifacts repositories create "$REPOSITORY" \
 gcloud auth configure-docker "${REGION}-docker.pkg.dev" -q
 
 gcloud builds submit ../backend --tag "$IMAGE_URI"
+
 
 # Open VM firewall for the selected host port (80 by default).
 gcloud compute firewall-rules create "$FIREWALL_RULE" \
@@ -54,6 +62,8 @@ gcloud compute instances add-tags "$INSTANCE" \
   --zone "$ZONE" \
   --tags crm-backend
 
+=======
+
 # Ensure Docker is installed and run container on VM.
 gcloud compute ssh "$INSTANCE" --project "$PROJECT_ID" --zone "$ZONE" --command "
   set -euo pipefail
@@ -62,6 +72,7 @@ gcloud compute ssh "$INSTANCE" --project "$PROJECT_ID" --zone "$ZONE" --command 
   sudo systemctl start docker
   sudo docker rm -f crm-backend || true
   sudo docker pull '$IMAGE_URI'
+
   sudo docker run -d --name crm-backend --restart unless-stopped \
     -p ${HOST_PORT}:${CONTAINER_PORT} \
     -e PORT=${CONTAINER_PORT} \
@@ -79,3 +90,8 @@ gcloud compute ssh "$INSTANCE" --project "$PROJECT_ID" --zone "$ZONE" --command 
 
 echo "Backend deployed to ${INSTANCE} (${ZONE})."
 echo "Try: http://35.188.176.52/health"
+=======
+  sudo docker run -d --name crm-backend --restart unless-stopped -p 8080:8080 '$IMAGE_URI'
+"
+
+echo "Backend deployed to ${INSTANCE} (${ZONE})."
