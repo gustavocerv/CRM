@@ -4,7 +4,10 @@ const db = require('../config/db');
 
 const BCRYPT_ROUNDS = 12;
 
+
+=======
 // Helper to build JWT token
+
 function buildToken(user) {
   return jwt.sign(
     { user_id: user.id, role: user.role, tenant_id: user.tenant_id },
@@ -13,7 +16,10 @@ function buildToken(user) {
   );
 }
 
+
+=======
 // Admin registration (for first tenant/admin)
+
 async function registerAdmin(req, res) {
   const { companyName, name, email, password } = req.body;
   if (!companyName || !name || !email || !password) {
@@ -60,7 +66,10 @@ async function registerAdmin(req, res) {
   }
 }
 
+
+=======
 // Login existing users
+
 async function login(req, res) {
   const { email, password } = req.body;
 
@@ -85,4 +94,8 @@ async function login(req, res) {
   return res.json({ token });
 }
 
+
 module.exports = { login, registerAdmin };
+=======
+module.exports = { login, registerAdmin };
+
