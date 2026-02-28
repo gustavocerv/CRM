@@ -39,12 +39,7 @@ Next.js Frontend
 ## 2) Google Cloud Setup
 
 Your provided project context:
-- **Project ID:** `project-0693dfc8-2cf7-4d94-a5e`
-- **Project Name:** `My First Project`
-- **Project Number:** `382483528011`
-- **Instance:** `ha-node-1` (`us-central1-a`)
-- **Internal IP:** `10.0.0.4`
-- **External IP:** `35.188.176.52`
+
 
 Bootstrap project resources with:
 
