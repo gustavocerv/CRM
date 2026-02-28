@@ -45,7 +45,7 @@ Bootstrap project resources with:
 
 ```bash
 cd infra
-PROJECT_ID=project-0693dfc8-2cf7-4d94-a5e REGION=us-central1 ./gcloud-setup.sh
+
 ```
 
 This enables required APIs, creates Cloud SQL DB + user, creates GCS bucket, and grants IAM roles to backend service account.
